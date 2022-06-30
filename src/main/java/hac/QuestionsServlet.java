@@ -40,6 +40,8 @@ public class QuestionsServlet extends HttpServlet {
         JsonObjectBuilder questionJson = Json.createObjectBuilder();
         questionJson.add("question",question.getQuestion());
         questionJson.add("key",key);
+        questionJson.add("answersNumber",question.getNumberOfAnswers());
+        questionJson.add("answers",question.getAnswers());
         return questionJson.build();
     }
 
@@ -70,6 +72,7 @@ public class QuestionsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Integer v = Integer.parseInt( request.getParameter("questionNumber"));
+
 
     }
 

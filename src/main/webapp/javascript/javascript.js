@@ -23,12 +23,13 @@
 
     function toHtml(json){
 
-        console.log(json.questionStack);
+        console.log(json);
+
         let str = '';
         str+=`<div class="container">`
         json.questionStack.forEach(obj=> {
             str+=`<div>${obj.question} </div>`;
-            str+= `<div>0 answers</div>`;
+            str+= `<div>${obj.answersNumber} answers</div>`;
             str+=`<form action="/QuestionsServlet" method="post">
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="show answer">

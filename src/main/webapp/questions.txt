@@ -1,5 +1,2 @@
 What is the difference between StringBuilder and StringBuffer?
-q3?
-q4
-q5?
 How do I read a Servlet parameter from web.xml file?
