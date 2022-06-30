@@ -3,14 +3,7 @@
 (function () {
 
     let questions = null;
-
-    document.addEventListener("DOMContentLoaded",function (){
-
-        questions = document.getElementById("questions");
-
-        fetchLandingPage();
-
-    })
+    let submit = null;
 
     function status(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -23,20 +16,18 @@
 
     function toHtml(json){
 
-        console.log(json);
-
         let str = '';
         str+=`<div class="container">`
         json.questionStack.forEach(obj=> {
             str+=`<div>${obj.question} </div>`;
             str+= `<div>${obj.answersNumber} answers</div>`;
-            str+=`<form action="/QuestionsServlet" method="post">
-                        <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <input type="submit" value="show answer">
-                   </form>`;
             str+=`<form action="/AddAnswerServlet" method="get">
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
+                   </form>`;
+            str+=`<form action="/QuestionsServlet" method="post">
+                        <input type="hidden" name="questionNumber" value="${obj.key}">
+                        <input type="submit" value="show answer">
                    </form>`;
             str+=`<br/>`
         })
@@ -57,5 +48,13 @@
 
             })
     }
+
+
+    document.addEventListener("DOMContentLoaded",function (){
+
+        questions = document.getElementById("questions");
+        fetchLandingPage();
+
+    })
 
 })();
