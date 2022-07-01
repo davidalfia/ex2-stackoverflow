@@ -3,7 +3,6 @@
 (function () {
 
     let questions = null;
-    let submit = null;
 
     function status(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -27,40 +26,13 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<form action="/QuestionsServlet" id="showAnswerForm" method="post">
-                        <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <button class="Hide" type="submit" value="show answer">
-                        
-                        
-                   </form>`;
+            str+=`<button value="${obj.key}"></button>`;
             str+=`<br/>`
         })
         str+=`</div>`
         return str;
     }
 
-    function fetchAnswers() { // fetch data from server
-        fetch('./fetchAnswers')
-            .then(
-                function (response) {
-                    // handle the error
-                    if (response.status !== 200) {
-                        document.querySelector("#data").innerHTML = 'Looks like there was a problem. Status Code: ' +
-                            response.status;
-                        return;
-                    }
-                    // Examine the response and generate the HTML
-                    response.json().then(function (data) {
-                        myJas.set(data) ;
-                    });
-                }
-            )
-            .catch(function (err) { // display error message in case of error
-                // display error message!
-                document.querySelector("#div").innerHTML = 'Fetch Error :' + err;
-                console.log('Fetch Error :', err);
-            });
-    }
 
     function fetchLandingPage()
     {
@@ -77,15 +49,16 @@
 
     document.addEventListener("DOMContentLoaded",function (){
 
+        questions = document.getElementById("questions");
         let questionObj = "";
         let questionNumber = "";
 
         fetchLandingPage();
-        fetchAnswers()
 
         document.addEventListener('click', function (e) { // button click listener
 
             if(e.target.tagName === "BUTTON"){ // only if target is button
+                console.log("click")
                 questionObj = document.getElementById(e.target.id);
                 questionNumber = "question" + String(e.target.id).substr(-1);
 
@@ -100,6 +73,7 @@
                 }
             }
         }, false);
+
 
         })
 
