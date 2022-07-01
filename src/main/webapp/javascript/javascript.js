@@ -14,9 +14,6 @@
 
 
     function toHtml(json){
-
-        console.log(json);
-
         let str = '';
         str+=`<div class="container">`
         json.questionStack.forEach(obj=> {
@@ -26,7 +23,7 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<button value="${obj.key}"></button>`;
+            str+=`<button value="${obj.key}">answer</button>`;
             str+=`<br/>`
         })
         str+=`</div>`
@@ -50,8 +47,6 @@
     document.addEventListener("DOMContentLoaded",function (){
 
         questions = document.getElementById("questions");
-        let questionObj = "";
-        let questionNumber = "";
 
         fetchLandingPage();
 
@@ -59,18 +54,6 @@
 
             if(e.target.tagName === "BUTTON"){ // only if target is button
                 console.log("click")
-                questionObj = document.getElementById(e.target.id);
-                questionNumber = "question" + String(e.target.id).substr(-1);
-
-                if (questionObj.innerHTML === 'Show') { // in case of button is on Show state
-                    clearHtml(questionNumber);
-                    document.getElementById(questionNumber).style.display = 'none';
-                    questionObj.innerHTML = 'Hide'
-                } else {
-                    buildHtml(questions.get(), questionNumber);
-                    document.getElementById(questionNumber).style.display = 'block';
-                    questionObj.innerHTML = 'Show'
-                }
             }
         }, false);
 
@@ -78,38 +61,4 @@
         })
 
 
-    function buildHtml(data, id){ // build the html data
-
-        let div = "";
-        let answer = "";
-        for(let inx of data){
-            if(id.substr(-1) === inx){ // if substring of id matches the index in json array
-                answer = data[data.indexOf(inx)+1].replaceAll('.',"").replaceAll(':'," - Answer : ").replaceAll(','," .Name : ").replace('['," Name : ").replace(']','')
-                // answer is the string that stores each answer for the given question and builds it into the list
-                div = document.getElementById(id);
-
-                div.appendChild(arrangeData(answer)); // builds the list inside the div
-            }
-        }
-    }
-    function clearHtml(id){ // clear all created html data to avoid duplicates
-        let items ;
-        items = document.getElementById(id);
-        while (items.firstChild) {
-            items.removeChild(items.lastChild); // remove each element separately
-        }
-    }
-
-    function arrangeData(answer){ // arranges data into a list
-        let ans = answer.split(".");
-        let ul = document.createElement("ul");  // create unordered list element
-
-        for(let j = 0; j < ans.length;j++)
-        {
-            let li = document.createElement("li"); // create line of list
-            li.innerText = ans[j];
-            ul.appendChild(li);
-        }
-        return ul;
-    }
 })();

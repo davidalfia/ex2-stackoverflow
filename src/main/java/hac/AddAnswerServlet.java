@@ -30,7 +30,7 @@ public class AddAnswerServlet extends HttpServlet {
 
         questionStack =  (ConcurrentHashMap<Question,Integer>)(session.getAttribute("questionStack"));
 
-        String questionNumber = (String) request.getAttribute("questionNumber");
+        Integer questionNumber = 1;
 
         String userName = request.getParameter("username");
         String curAnswer = request.getParameter("answer");
@@ -39,7 +39,7 @@ public class AddAnswerServlet extends HttpServlet {
 
         for(Map.Entry<Question,Integer> entry : questionStack.entrySet())
         {
-            if(entry.getValue() == Integer.parseInt(questionNumber)){
+            if(entry.getValue() == questionNumber){
                 entry.getKey().addAnswer(answer);
             }
         }
