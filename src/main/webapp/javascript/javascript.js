@@ -3,6 +3,8 @@
 (function () {
 
     let questions = null;
+    let result = null;
+    let id = null;
 
     function status(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -24,7 +26,7 @@
                         <input type="submit" value="answer">
                    </form>`;
             str+=`<button value="${obj.key}">answer</button>`;
-            str+=`<br/>`
+            str+=`<ol id="${obj.key}"></ol>`;
         })
         str+=`</div>`
         return str;
@@ -44,6 +46,8 @@
             })
     }
 
+
+
     document.addEventListener("DOMContentLoaded",function (){
 
         questions = document.getElementById("questions");
@@ -52,9 +56,45 @@
 
         document.addEventListener('click', function (e) { // button click listener
 
-            if(e.target.tagName === "BUTTON"){ // only if target is button
-                console.log("click")
+            if(e.target.tagName === "BUTTON") { // only if target is button
+
+                if (e.target.outerText == "answer") {
+                    fetch("/QuestionsServlet",
+                        {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'datatype': 'json'
+                            },
+                            body: new URLSearchParams(e.target.value).toString()
+                        })
+                        .then(status)
+                        .then(res => res.json())
+                        .then(json => {
+                            result = document.getElementById(e.target.value);
+                            result.innerHTML = ""
+                            result.style.display = 'block';
+                            json.answers.forEach(obj => {
+                                let li = document.createElement("li");
+                                li.innerHTML = "[" + obj.username + "]" + obj.answer
+                                result.append(li);
+                            })
+                            let button = document.createElement('button');
+                            button.innerText = "hide";
+                            button.value = e.target.value;
+                            button.addEventListener("click", event=>{
+                                if (event.target.outerText == "hide"){
+                                    result = document.getElementById(event.target.value);
+                                    result.style.display = "none";
+                                    event.target.replaceWith(e.target);
+                                }
+                            });
+                            e.target.replaceWith(button);
+                        })
+
+                }
             }
+
         }, false);
 
 

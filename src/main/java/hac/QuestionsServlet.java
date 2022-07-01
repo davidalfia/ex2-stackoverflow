@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -70,7 +71,31 @@ public class QuestionsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer v = Integer.parseInt( request.getParameter("questionNumber"));
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        JsonObjectBuilder questionJson = Json.createObjectBuilder();
+
+        String key = request.getReader().readLine().replace("=", "");
+        for(Map.Entry<Question,Integer> entry : questionStack.entrySet())
+        {
+            if(entry.getValue() == Integer.parseInt(key)){
+                questionJson.add("answers",entry.getKey().getAnswers());
+            }
+        }
+
+        try (OutputStream out = response.getOutputStream()) {
+            JsonWriter jsonWriter = Json.createWriter(out);
+            jsonWriter.writeObject(questionJson.build());
+            jsonWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
 

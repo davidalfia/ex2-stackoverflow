@@ -17,8 +17,17 @@ public class AddAnswerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String questionNumber = request.getParameter("questionNumber");
-        request.setAttribute("questionNumber ",questionNumber);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+       String key = request.getParameter("questionNumber");
+
+        System.out.println("----get---");
+        System.out.println(key);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("q",key);
+
         request.getRequestDispatcher("addAnswer.html").forward(request, response);
     }
 
@@ -26,11 +35,16 @@ public class AddAnswerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         HttpSession session = request.getSession();
 
         questionStack =  (ConcurrentHashMap<Question,Integer>)(session.getAttribute("questionStack"));
 
-        Integer questionNumber = 1;
+        System.out.println("---post---");
+        String key = (String) session.getAttribute("q");
+
+        System.out.println(key);
+
 
         String userName = request.getParameter("username");
         String curAnswer = request.getParameter("answer");
@@ -39,7 +53,8 @@ public class AddAnswerServlet extends HttpServlet {
 
         for(Map.Entry<Question,Integer> entry : questionStack.entrySet())
         {
-            if(entry.getValue() == questionNumber){
+            if(entry.getValue() == 1){
+                System.out.println("entry");
                 entry.getKey().addAnswer(answer);
             }
         }
