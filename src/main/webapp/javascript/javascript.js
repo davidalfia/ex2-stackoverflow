@@ -3,7 +3,6 @@
 (function () {
 
     let questions = null;
-    let submit = null;
 
     function status(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -27,10 +26,7 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<form action="/QuestionsServlet" id="showAnswerForm" method="post">
-                        <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <input type="submit" value="show answer">
-                   </form>`;
+            str+=`<button value="${obj.key}"></button>`;
             str+=`<br/>`
         })
         str+=`</div>`
@@ -53,6 +49,7 @@
 
     document.addEventListener("DOMContentLoaded",function (){
 
+        questions = document.getElementById("questions");
         let questionObj = "";
         let questionNumber = "";
 
@@ -61,6 +58,7 @@
         document.addEventListener('click', function (e) { // button click listener
 
             if(e.target.tagName === "BUTTON"){ // only if target is button
+                console.log("click")
                 questionObj = document.getElementById(e.target.id);
                 questionNumber = "question" + String(e.target.id).substr(-1);
 
@@ -75,6 +73,7 @@
                 }
             }
         }, false);
+
 
         })
 
