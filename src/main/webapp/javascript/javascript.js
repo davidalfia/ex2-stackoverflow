@@ -29,7 +29,9 @@
                    </form>`;
             str+=`<form action="/QuestionsServlet" id="showAnswerForm" method="post">
                         <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <input type="submit" value="show answer">
+                        <button class="Hide" type="submit" value="show answer">
+                        
+                        
                    </form>`;
             str+=`<br/>`
         })
@@ -37,6 +39,28 @@
         return str;
     }
 
+    function fetchAnswers() { // fetch data from server
+        fetch('./fetchAnswers')
+            .then(
+                function (response) {
+                    // handle the error
+                    if (response.status !== 200) {
+                        document.querySelector("#data").innerHTML = 'Looks like there was a problem. Status Code: ' +
+                            response.status;
+                        return;
+                    }
+                    // Examine the response and generate the HTML
+                    response.json().then(function (data) {
+                        myJas.set(data) ;
+                    });
+                }
+            )
+            .catch(function (err) { // display error message in case of error
+                // display error message!
+                document.querySelector("#div").innerHTML = 'Fetch Error :' + err;
+                console.log('Fetch Error :', err);
+            });
+    }
 
     function fetchLandingPage()
     {
@@ -57,6 +81,7 @@
         let questionNumber = "";
 
         fetchLandingPage();
+        fetchAnswers()
 
         document.addEventListener('click', function (e) { // button click listener
 
