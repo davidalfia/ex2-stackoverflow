@@ -27,10 +27,8 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<form action="/QuestionsServlet" id="showAnswerForm" method="post">
-                        <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <input type="submit" value="show answer">
-                   </form>`;
+            str+=`<button value="${obj.key}"></button>`;
+
             str+=`<br/>`
         })
         str+=`</div>`
@@ -52,6 +50,9 @@
     }
 
     document.addEventListener("DOMContentLoaded",function (){
+
+
+        questions = document.getElementById("questions");
 
         let questionObj = "";
         let questionNumber = "";
@@ -75,6 +76,7 @@
                 }
             }
         }, false);
+
 
         })
 
