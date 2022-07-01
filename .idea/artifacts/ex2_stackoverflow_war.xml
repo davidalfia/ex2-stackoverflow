@@ -9,6 +9,11 @@
     </properties>
     <root id="archive" name="ex2-stackoverflow-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="ex2-stackoverflow:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="net.maritimecloud.3rdparty.glassfish.javax.json" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
