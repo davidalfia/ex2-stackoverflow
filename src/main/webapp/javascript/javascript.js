@@ -16,6 +16,8 @@
 
     function toHtml(json){
 
+        console.log(json);
+
         let str = '';
         str+=`<div class="container">`
         json.questionStack.forEach(obj=> {
@@ -25,7 +27,7 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<form action="/QuestionsServlet" method="post">
+            str+=`<form action="/QuestionsServlet" id="showAnswerForm" method="post">
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="show answer">
                    </form>`;
@@ -54,6 +56,11 @@
 
         questions = document.getElementById("questions");
         fetchLandingPage();
+
+        document.addEventListener("click",(event)=>{
+            event.preventDefault();
+
+        })
 
     })
 

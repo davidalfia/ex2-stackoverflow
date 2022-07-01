@@ -16,7 +16,10 @@ public class AddAnswerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("addAnswer.html").include(request, response);
+
+        String questionNumber = request.getParameter("questionNumber");
+        request.setAttribute("questionNumber ",questionNumber);
+        request.getRequestDispatcher("addAnswer.html").forward(request, response);
     }
 
 
@@ -27,7 +30,7 @@ public class AddAnswerServlet extends HttpServlet {
 
         questionStack =  (ConcurrentHashMap<Question,Integer>)(session.getAttribute("questionStack"));
 
-        Integer questionNumber = Integer.parseInt( request.getParameter("questionNumber"));
+        String questionNumber = (String) request.getAttribute("questionNumber");
 
         String userName = request.getParameter("username");
         String curAnswer = request.getParameter("answer");
@@ -36,7 +39,7 @@ public class AddAnswerServlet extends HttpServlet {
 
         for(Map.Entry<Question,Integer> entry : questionStack.entrySet())
         {
-            if(entry.getValue() == 1){
+            if(entry.getValue() == Integer.parseInt(questionNumber)){
                 entry.getKey().addAnswer(answer);
             }
         }
