@@ -2,16 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
+    <title>add answer</title>
 </head>
 <body>
-<div id="question">this is the question</div>
-    <form action="AddAnswerServlet" method="post">
-        <label for="username">username</label>
-        <input type="text" name="username" id="username">
-        <label for="answer">answer</label>
-        <input type="text" name="answer" id="answer">
-        <input type="submit" value="submit">
-    </form>
+
+
+<script>
+    const greetingValue = localStorage.getItem('greeting');
+    document.addEventListener("DOMContentLoaded",function (){
+        document.getElementById("question").outerText = greetingValue;
+    })
+</script>
+
+
+<div class="container">
+    <br/>
+    <br/>
+
+    <div class="container">
+        <h4><b> add your answer here</b></h4>
+        <br/>
+        <div id="question"></div>
+        <br/><br/>
+        <form class="form-group" action="AddAnswerServlet" method="post">
+            <div class="container">
+                <label for="username">username</label>
+                <input type="text" required="true" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                <small id="usernamesmall" class="form-text text-muted">We'll never share your name with anyone else.</small>
+            </div>
+            <div class="container">
+                <label for="answer">insert your answer</label>
+                <input type="text" required="true" class="form-control" id="answer" name="answer">
+            </div>
+            <br/>
+            <div class="container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
 </body>
 </html>

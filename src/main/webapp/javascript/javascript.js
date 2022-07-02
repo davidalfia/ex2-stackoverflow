@@ -25,7 +25,7 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<button value="${obj.key}">answer</button>`;
+            str+=`<button value="${obj.key}" data-question="${obj.question}">answer</button>`;
             str+=`<ol id="${obj.key}"></ol>`;
         })
         str+=`</div>`
@@ -54,11 +54,13 @@
 
         fetchLandingPage();
 
+
         document.addEventListener('click', function (e) { // button click listener
 
             if(e.target.tagName === "BUTTON") { // only if target is button
 
                 if (e.target.outerText == "answer") {
+                    localStorage.setItem('greeting', e.target.dataset.question);
                     fetch("/QuestionsServlet",
                         {
                             method: "POST",
