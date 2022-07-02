@@ -4,6 +4,10 @@ import net.maritimecloud.internal.core.javax.json.*;
 
 import java.util.Vector;
 
+
+/**
+ * holds the question, the key (same key as server question map), and the stack of answers
+ */
 public class Question {
 
     private final String question;

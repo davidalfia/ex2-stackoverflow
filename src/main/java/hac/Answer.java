@@ -1,5 +1,8 @@
 package hac;
 
+/**
+ *  answer class that holds username and the answer to display in index.html
+ */
 public class Answer {
 
     private String username;

@@ -10,11 +10,20 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
+
+/**
+ * main servlet, the first one the program will go to
+ * in this servlet, in init function we will read the question from file only once
+ * then create a question stack in server, hold it in session
+ */
 @WebServlet(name = "QuestionsServlet", value = "/QuestionsServlet")
 public class QuestionsServlet extends HttpServlet {
 
     ConcurrentHashMap<Question,Integer> questionStack = new ConcurrentHashMap<>();
 
+    /**
+     * read question from file only once
+     */
     @Override
     public void init(){
         Integer idx = 0;
@@ -37,6 +46,12 @@ public class QuestionsServlet extends HttpServlet {
     }
 
 
+    /**
+     *
+     * @param question the question in order to create a json question before sending to client
+     * @param key the key in order to create a json key before sending to client
+     * @return json object with question,key,amount of answers, and answers vector
+     */
     static private JsonObject setQuestionsJson(Question question, String key){
         JsonObjectBuilder questionJson = Json.createObjectBuilder();
         questionJson.add("question",question.getQuestion());
@@ -47,6 +62,12 @@ public class QuestionsServlet extends HttpServlet {
     }
 
 
+    /**
+     *
+     * @param request fetch from client only once in the program, fetching the question stack
+     * @param response return index.html with the questions as json, client side will display on page
+     *  json is:  json.questionsStack  ->holds jsonArray of the questions
+     */
     @Override
     protected void doGet(HttpServletRequest request,HttpServletResponse response){
         response.setContentType("application/json");
@@ -69,6 +90,15 @@ public class QuestionsServlet extends HttpServlet {
         }
     }
 
+
+    /**
+     *
+     * @param request from index.html show answer form, will get the question id
+     *                will get the answers to that question and build json holding the answers
+     * @param response return json of the answers to requested question to client side
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

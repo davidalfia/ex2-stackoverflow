@@ -4,6 +4,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
+
+/**
+ * helloServlet
+ */
 @WebServlet(name = "helloServlet", urlPatterns = {""})
 public class HelloServlet extends HttpServlet {
 

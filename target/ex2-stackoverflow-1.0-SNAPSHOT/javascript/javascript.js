@@ -15,6 +15,11 @@
     }
 
 
+    /**
+     *
+     * @param json  -> question stack from QuestionsServlet doGet
+     * @returns {string}  return the html to display
+     */
     function toHtml(json){
         let str = '';
         str+=`<div class="container">`
@@ -33,6 +38,9 @@
     }
 
 
+    /**
+     * fetch the questions from the server only once in the program, then build and display on page
+     */
     function fetchLandingPage()
     {
         fetch('/QuestionsServlet')
@@ -50,6 +58,7 @@
 
     document.addEventListener("DOMContentLoaded",function (){
 
+        
         questions = document.getElementById("questions");
 
         fetchLandingPage();

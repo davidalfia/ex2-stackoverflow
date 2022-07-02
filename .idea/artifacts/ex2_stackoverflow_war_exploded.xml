@@ -13,10 +13,6 @@
         <element id="directory" name="classes">
           <element id="module-output" name="ex2-stackoverflow" />
         </element>
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
-          <element id="library" level="project" name="net.maritimecloud.3rdparty.glassfish.javax.json" />
-        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/ex2-stackoverflow-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
