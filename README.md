@@ -1,6 +1,7 @@
 # ex2-stackoverflow
 
 david alfia 201576196
+itizk azu 305500605
 
 this is a stackoverflow page for developers
 
