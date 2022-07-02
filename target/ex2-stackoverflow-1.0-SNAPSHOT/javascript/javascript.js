@@ -23,16 +23,19 @@
     function toHtml(json){
         let str = '';
         str+=`<div class="container">`
-        json.questionStack.forEach(obj=> {
-            str+=`<div>${obj.question} </div>`;
-            str+= `<div>${obj.answersNumber} answers</div>`;
-            str+=`<form action="/AddAnswerServlet" data-question="${obj.question}" method="get">
-                        <input type="hidden" name="questionNumber" value="${obj.key}">
-                        <input type="submit" value="answer">
-                   </form>`;
-            str+=`<button value="${obj.key}" data-question="${obj.question}">show answer</button>`;
-            str+=`<ol id="${obj.key}"></ol>`;
-        })
+                json.questionStack.forEach(obj=> {
+                    str+=`<div class="m-2 p-2">`
+                        str+=`<div>${obj.question} </div>`;
+                        str+= `<div>${obj.answersNumber} answers</div>`;
+                        str+=`<form action="/AddAnswerServlet" data-question="${obj.question}" method="get">
+                                    <input type="hidden" name="questionNumber" value="${obj.key}">
+                                    <input type="submit" value="answer">
+                               </form>`;
+                        str+=`<button value="${obj.key}" data-question="${obj.question}">show answers</button>`;
+                        str+=`<ol id="${obj.key}"></ol>`;
+                    str+=`</div>`
+                })
+
         str+=`</div>`
         return str;
     }
@@ -58,7 +61,7 @@
 
     document.addEventListener("DOMContentLoaded",function (){
 
-        
+
         questions = document.getElementById("questions");
 
         fetchLandingPage();
@@ -70,7 +73,7 @@
 
             if(e.target.tagName === "BUTTON") { // only if target is button
 
-                if (e.target.outerText == "show answer") {
+                if (e.target.outerText == "show answers") {
                     localStorage.setItem('greeting', e.target.dataset.question);
                     fetch("/QuestionsServlet",
                         {
