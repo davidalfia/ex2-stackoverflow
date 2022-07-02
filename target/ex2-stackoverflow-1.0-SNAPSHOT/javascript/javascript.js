@@ -21,7 +21,7 @@
         json.questionStack.forEach(obj=> {
             str+=`<div>${obj.question} </div>`;
             str+= `<div>${obj.answersNumber} answers</div>`;
-            str+=`<form action="/AddAnswerServlet" method="get">
+            str+=`<form action="/AddAnswerServlet" data-question="${obj.question}" method="get">
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
@@ -53,7 +53,9 @@
         questions = document.getElementById("questions");
 
         fetchLandingPage();
-
+        document.addEventListener('submit',(e)=>{
+            localStorage.setItem('greeting', e.target.dataset.question);
+        })
 
         document.addEventListener('click', function (e) { // button click listener
 
