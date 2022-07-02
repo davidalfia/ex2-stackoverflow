@@ -59,7 +59,7 @@
 
             if(e.target.tagName === "BUTTON") { // only if target is button
 
-                if (e.target.outerText == "answer") {
+                if (e.target.outerText == "show answer") {
                     localStorage.setItem('greeting', e.target.dataset.question);
                     fetch("/QuestionsServlet",
                         {
