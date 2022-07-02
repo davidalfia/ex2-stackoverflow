@@ -25,7 +25,7 @@
                         <input type="hidden" name="questionNumber" value="${obj.key}">
                         <input type="submit" value="answer">
                    </form>`;
-            str+=`<button value="${obj.key}" data-question="${obj.question}">answer</button>`;
+            str+=`<button value="${obj.key}" data-question="${obj.question}">show answer</button>`;
             str+=`<ol id="${obj.key}"></ol>`;
         })
         str+=`</div>`
